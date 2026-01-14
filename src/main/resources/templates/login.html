@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head('Login - Survey System')"></head>
+<body>
+    <div th:replace="fragments/layout :: navbar"></div>
+    <div class="container">
+        <div class="section-header fade-in">
+            <h1>Login</h1>
+            <p>Enter your credentials to continue</p>
+        </div>
+
+        <div class="card scale-in" style="max-width: 450px; margin: 0 auto;">
+            <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+
+            <form th:action="@{/login}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    Login
+                </button>
+            </form>
+
+            <div style="text-align: center; margin-top: 24px;">
+                <p style="color: var(--text-light);">
+                    Don't have an account? 
+                    <a th:href="@{/register}" style="color: var(--primary-deep); text-decoration: none; font-weight: 600;">
+                        Register here
+                    </a>
+                </p>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div th:replace="fragments/layout :: footer"></div>
+</body>
+</html>

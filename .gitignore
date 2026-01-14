@@ -1,0 +1,25 @@
+# Maven
+/target/
+/.mvn/
+!/.mvn/wrapper/maven-wrapper.jar
+
+# IntelliJ
+.idea/
+*.iml
+
+# VSCode
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# H2 database files
+/data/
+
+# IDE specific
+out/
+

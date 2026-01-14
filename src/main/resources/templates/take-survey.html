@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head(${survey.title} + ' - Take Survey')"></head>
+<body>
+    <div th:replace="fragments/layout :: navbar"></div>
+    <div class="container">
+        <div class="section-header fade-in">
+            <h1 th:text="${survey.title}">Survey Title</h1>
+            <p th:if="${survey.description}" th:text="${survey.description}"></p>
+        </div>
+
+        <div class="card fade-in">
+            <div th:if="${survey.instructions}" style="background: #f0f9ff; padding: 20px; border-radius: 8px; margin-bottom: 24px; border-left: 4px solid var(--primary-deep);">
+                <strong>Instructions:</strong>
+                <p th:text="${survey.instructions}" style="margin-top: 8px;"></p>
+            </div>
+
+            <form th:action="@{'/survey/submit/' + ${survey.id}}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <div class="form-section">
+                    <h3>Overall Satisfaction</h3>
+                    <div class="form-group">
+                        <label>How satisfied are you overall? *</label>
+                        <div class="rating-input">
+                            <div class="rating-option">
+                                <input type="radio" id="rating1" name="overallRating" value="1" required>
+                                <label for="rating1">1 - Very Poor</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" id="rating2" name="overallRating" value="2">
+                                <label for="rating2">2 - Poor</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" id="rating3" name="overallRating" value="3">
+                                <label for="rating3">3 - Average</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" id="rating4" name="overallRating" value="4">
+                                <label for="rating4">4 - Good</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" id="rating5" name="overallRating" value="5">
+                                <label for="rating5">5 - Excellent</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Detailed Questions</h3>
+                    <div class="form-group">
+                        <label>Question 1: The content was clear and easy to understand</label>
+                        <div class="rating-input">
+                            <div class="rating-option">
+                                <input type="radio" id="q1_1" name="question1Rating" value="1">
+                                <label for="q1_1">1 - Strongly Disagree</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" id="q1_2" name="question1Rating" value="2">
+                                <label for="q1_2">2 - Disagree</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" id="q1_3" name="question1Rating" value="3">
+                                <label for="q1_3">3 - Neutral</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" id="q1_4" name="question1Rating" value="4">
+                                <label for="q1_4">4 - Agree</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" id="q1_5" name="question1Rating" value="5">
+                                <label for="q1_5">5 - Strongly Agree</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Question 2: This survey was relevant to me</label>
+                        <div class="rating-input">
+                            <div class="rating-option">
+                                <input type="radio" id="q2_1" name="question2Rating" value="1">
+                                <label for="q2_1">1 - Strongly Disagree</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" id="q2_2" name="question2Rating" value="2">
+                                <label for="q2_2">2 - Disagree</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" id="q2_3" name="question2Rating" value="3">
+                                <label for="q2_3">3 - Neutral</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" id="q2_4" name="question2Rating" value="4">
+                                <label for="q2_4">4 - Agree</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" id="q2_5" name="question2Rating" value="5">
+                                <label for="q2_5">5 - Strongly Agree</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Question 3: I would recommend this to others</label>
+                        <div class="rating-input">
+                            <div class="rating-option">
+                                <input type="radio" id="q3_1" name="question3Rating" value="1">
+                                <label for="q3_1">1 - Strongly Disagree</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" id="q3_2" name="question3Rating" value="2">
+                                <label for="q3_2">2 - Disagree</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" id="q3_3" name="question3Rating" value="3">
+                                <label for="q3_3">3 - Neutral</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" id="q3_4" name="question3Rating" value="4">
+                                <label for="q3_4">4 - Agree</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" id="q3_5" name="question3Rating" value="5">
+                                <label for="q3_5">5 - Strongly Agree</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Additional Feedback</h3>
+                    <div class="form-group">
+                        <label>Yes/No Question: Would you participate again?</label>
+                        <div class="rating-input">
+                            <div class="rating-option">
+                                <input type="radio" id="yes" name="yesNoAnswer" value="true">
+                                <label for="yes">Yes</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" id="no" name="yesNoAnswer" value="false">
+                                <label for="no">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="feedback">Your Feedback</label>
+                        <textarea id="feedback" name="feedback" class="form-control" rows="4"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="suggestions">Suggestions (Optional)</label>
+                        <textarea id="suggestions" name="suggestions" class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 32px;">
+                    <button type="submit" class="btn btn-primary" style="padding: 14px 40px; font-size: 18px;">
+                        Submit Response
+                    </button>
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+    <div th:replace="fragments/layout :: footer"></div>
+</body>
+</html>

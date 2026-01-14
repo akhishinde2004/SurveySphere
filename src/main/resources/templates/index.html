@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head('Home')"></head>
+<body>
+    <div th:replace="fragments/layout :: navbar"></div>
+    <div class="container">
+        <div class="section-header fade-in">
+            <h1>Welcome to Survey System</h1>
+            <p>Create, share, and analyze surveys with ease</p>
+        </div>
+
+        <div class="card scale-in" style="max-width: 500px; margin: 0 auto;">
+            <h2 style="text-align: center; margin-bottom: 32px; color: var(--primary-deep);">
+                Get Started
+            </h2>
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+                <a th:href="@{/login}" class="btn btn-primary" style="width: 100%; text-align: center;">
+                    Login
+                </a>
+                <a th:href="@{/register}" class="btn btn-secondary" style="width: 100%; text-align: center;">
+                    Create Account
+                </a>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div th:replace="fragments/layout :: footer"></div>
+</body>
+</html>

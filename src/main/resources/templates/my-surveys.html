@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Surveys - Survey System</title>
+    <link th:href="@{/css/theme.css}" rel="stylesheet">
+    <link th:href="@{/css/animations.css}" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="section-header fade-in">
+            <h1>My Surveys</h1>
+            <p>Manage all your created surveys</p>
+        </div>
+
+        <div style="text-align: center; margin-bottom: 24px;">
+            <a th:href="@{/survey/create}" class="btn btn-primary">Create New Survey</a>
+        </div>
+
+        <div th:if="${surveys.isEmpty()}" class="card">
+            <div class="empty-state">
+                <div class="empty-state-icon">📋</div>
+                <h3>No surveys yet</h3>
+                <p>Create your first survey to get started</p>
+                <a th:href="@{/survey/create}" class="btn btn-primary" style="margin-top: 20px;">Create Survey</a>
+            </div>
+        </div>
+
+        <div th:if="${!surveys.isEmpty()}" class="grid grid-2">
+            <div th:each="survey : ${surveys}" class="card fade-in">
+                <h3 style="color: var(--primary-deep); margin-bottom: 12px;" th:text="${survey.title}"></h3>
+                <p style="color: var(--text-light); margin-bottom: 16px;" th:if="${survey.description}" th:text="${survey.description}"></p>
+                
+                <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;">
+                    <span th:if="${survey.category}" style="background: #e0e7ff; color: var(--primary-deep); padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600;" th:text="${survey.category}"></span>
+                    <span style="background: #d1fae5; color: var(--secondary-dark); padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600;" th:text="${survey.visibility}"></span>
+                </div>
+
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                    <a th:href="@{'/survey/results/' + ${survey.id}}" class="btn btn-secondary" style="flex: 1;">
+                        View Results
+                    </a>
+                    <a th:href="@{'/survey/take/' + ${survey.id}}" class="btn btn-outline" style="flex: 1;">
+                        Preview
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 32px;">
+            <a th:href="@{/dashboard}" class="btn btn-outline">Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head('Dashboard - Survey System')"></head>
+<body>
+    <div th:replace="fragments/layout :: navbar"></div>
+
+    <div class="container">
+        <span class="brand-badge">SurveySphere • v1.0</span>
+
+        <div class="section-header fade-in">
+            <h1>Dashboard</h1>
+            <p>Welcome back, <span th:text="${user.name}"></span>!</p>
+        </div>
+
+        <div class="welcome-message slide-in">
+            <h2>Hello, <span th:text="${user.name}"></span>!</h2>
+            <p style="color: var(--text-light);">
+                Manage your surveys and explore public surveys created by others.
+            </p>
+        </div>
+
+        <div class="grid grid-2">
+            <a th:href="@{/survey/create}" class="dashboard-card">
+                <h3>➕</h3>
+                <h3>Create Survey</h3>
+                <p>Create a new survey with detailed questions</p>
+            </a>
+
+            <a th:href="@{/public-surveys}" class="dashboard-card">
+                <h3>🌐</h3>
+                <h3>Public Surveys</h3>
+                <p>Browse and take public surveys</p>
+            </a>
+
+            <a th:href="@{/logout}" class="dashboard-card">
+                <h3>🚪</h3>
+                <h3>Logout</h3>
+                <p>Sign out from your account</p>
+            </a>
+        </div>
+    </div>
+
+    <div th:replace="fragments/layout :: footer"></div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">Online Survey System</title>
+    <link th:href="@{/css/theme.css}" rel="stylesheet">
+    <link th:href="@{/css/animations.css}" rel="stylesheet">
+</head>
+<body>
+    <header th:fragment="navbar">
+        <div class="site-nav">
+            <div class="container nav-inner">
+                <a class="brand" th:href="@{/}">Survey<span class="brand-accent">Hub</span></a>
+                <nav class="nav-links">
+                    <a th:href="@{/}">Home</a>
+                    <a th:href="@{/public-surveys}">Public Surveys</a>
+                    <a th:href="@{/my-surveys}">My Surveys</a>
+                    <a th:href="@{/dashboard}">Dashboard</a>
+                </nav>
+                <div class="nav-actions">
+                    <a sec:authorize="isAnonymous()" th:href="@{/login}" class="btn btn-outline">Login</a>
+                    <a sec:authorize="isAnonymous()" th:href="@{/register}" class="btn btn-primary">Sign up</a>
+                    <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" style="display:inline;">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                        <button type="submit" class="btn btn-outline">Logout</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <footer th:fragment="footer">
+        <div class="site-footer">
+            <div class="container footer-inner">
+                <p>© <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2026</span> SurveyHub — Built with ❤️</p>
+                <div class="footer-links">
+                    <a th:href="@{/}">Home</a>
+                    <a th:href="@{/privacy}">Privacy</a>
+                    <a th:href="@{/terms}">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

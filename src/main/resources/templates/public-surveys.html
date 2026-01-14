@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head('Public Surveys - Survey System')"></head>
+<body>
+    <div th:replace="fragments/layout :: navbar"></div>
+    <div class="container">
+        <div class="section-header fade-in">
+            <h1>Public Surveys</h1>
+            <p>Browse and participate in public surveys</p>
+        </div>
+
+        <div th:if="${surveys.isEmpty()}" class="card">
+            <div class="empty-state">
+                <div class="empty-state-icon">🌐</div>
+                <h3>No public surveys available</h3>
+                <p>Be the first to create a public survey</p>
+            </div>
+        </div>
+
+        <div th:if="${!surveys.isEmpty()}" class="grid grid-2">
+            <div th:each="survey : ${surveys}" class="card fade-in">
+                <h3 style="color: var(--primary-deep); margin-bottom: 12px;" th:text="${survey.title}"></h3>
+                <p style="color: var(--text-light); margin-bottom: 16px;" th:if="${survey.description}" th:text="${survey.description}"></p>
+                
+                <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;">
+                    <span th:if="${survey.category}" style="background: #e0e7ff; color: var(--primary-deep); padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600;" th:text="${survey.category}"></span>
+                    <span th:if="${survey.estimatedTime}" style="background: #fef3c7; color: #92400e; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600;" th:text="${survey.estimatedTime + ' min'}"></span>
+                </div>
+
+                <div style="text-align: center;">
+                    <a th:href="@{'/survey/take/' + ${survey.id}}" class="btn btn-primary" style="width: 100%;">
+                        Take Survey
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 32px;">
+            <a th:href="@{/dashboard}" class="btn btn-outline">Back to Dashboard</a>
+        </div>
+        </div>
+    </div>
+    <div th:replace="fragments/layout :: footer"></div>
+</body>
+</html>

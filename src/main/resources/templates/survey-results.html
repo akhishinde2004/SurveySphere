@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head(${survey.title} + ' - Results')"></head>
+<body>
+    <div th:replace="fragments/layout :: navbar"></div>
+    <div class="container">
+        <div class="section-header fade-in">
+            <h1 th:text="${survey.title + ' - Results'}">Survey Results</h1>
+            <p>View all responses and statistics</p>
+        </div>
+
+        <div class="card fade-in">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 16px;">
+                <div>
+                    <h2 style="color: var(--primary-deep); margin-bottom: 8px;" th:text="${survey.title}"></h2>
+                    <p style="color: var(--text-light);" th:text="'Total Responses: ' + ${responses.size()}"></p>
+                </div>
+                <div style="text-align: center; background: linear-gradient(135deg, var(--secondary-teal) 0%, var(--secondary-dark) 100%); color: white; padding: 20px; border-radius: 12px; min-width: 150px;">
+                    <div style="font-size: 14px; opacity: 0.9;">Average Rating</div>
+                    <div class="rating-display" style="color: white; font-size: 36px;" th:text="${#numbers.formatDecimal(averageRating, 1, 1)}">0.0</div>
+                </div>
+            </div>
+
+            <div th:if="${responses.isEmpty()}" class="empty-state">
+                <div class="empty-state-icon">📭</div>
+                <h3>No responses yet</h3>
+                <p>Share your survey to start collecting responses</p>
+            </div>
+
+            <div th:if="${!responses.isEmpty()}">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Overall Rating</th>
+                            <th>Q1 Rating</th>
+                            <th>Q2 Rating</th>
+                            <th>Q3 Rating</th>
+                            <th>Yes/No</th>
+                            <th>Feedback</th>
+                            <th>Submitted</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="response : ${responses}">
+                            <td th:text="${response.overallRating != null ? response.overallRating : 'N/A'}"></td>
+                            <td th:text="${response.question1Rating != null ? response.question1Rating : 'N/A'}"></td>
+                            <td th:text="${response.question2Rating != null ? response.question2Rating : 'N/A'}"></td>
+                            <td th:text="${response.question3Rating != null ? response.question3Rating : 'N/A'}"></td>
+                            <td th:text="${response.yesNoAnswer != null ? (response.yesNoAnswer ? 'Yes' : 'No') : 'N/A'}"></td>
+                            <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis;" th:text="${response.feedback != null ? response.feedback : 'No feedback'}"></td>
+                            <td th:text="${#temporals.format(response.submittedAt, 'MMM dd, yyyy HH:mm')}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="text-align: center; margin-top: 32px;">
+                <a th:href="@{/survey/my-surveys}" class="btn btn-outline">
+                    Back to My Surveys
+                </a>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div th:replace="fragments/layout :: footer"></div>
+</body>
+</html>
